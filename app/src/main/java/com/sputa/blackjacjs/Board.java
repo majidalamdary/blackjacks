@@ -1,5 +1,6 @@
 package com.sputa.blackjacjs;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -450,27 +451,23 @@ public class Board extends AppCompatActivity {
 
 
         final ImageView img_enough_card = (ImageView) findViewById(R.id.img_enough_card);
-        LinearLayout.LayoutParams lp_img_enough_card = new LinearLayout.LayoutParams((int)(screenWidth*0.3), (int)(screenWidth*0.3));
-        img_enough_card.setLayoutParams(lp_img_enough_card);
-        x =(int)(((screenWidth/4)- (screenWidth*0.15)));
-        y = 1;
+        ConstraintLayout.LayoutParams lp_img_enough_card = new ConstraintLayout.LayoutParams((int)(screenWidth*0.3), (int)(screenWidth*0.3));
+        lp_img_enough_card = (ConstraintLayout.LayoutParams) img_enough_card.getLayoutParams();
+        lp_img_enough_card.width = (int)(screenWidth*0.3);
+        lp_img_enough_card.height = (int)(screenWidth*0.26);
 
-        //Toast.makeText(getBaseContext(), String.valueOf(x) + ":" + String.valueOf(y), Toast.LENGTH_SHORT).show();
-
-        lp_img_enough_card.setMargins(x, y, 0, 0);
         img_enough_card.setLayoutParams(lp_img_enough_card);
 
 
         final ImageView img_get_card = (ImageView) findViewById(R.id.img_get_card);
-        LinearLayout.LayoutParams lp_img_get_card = new LinearLayout.LayoutParams((int)(screenWidth*0.30), (int)(screenWidth*0.30));
-        img_get_card.setLayoutParams(lp_img_get_card);
-        x =  (int)(((screenWidth/4)));
-        y = 1;
+        ConstraintLayout.LayoutParams lp_img_get_card = new ConstraintLayout.LayoutParams((int)(screenWidth*0.30), (int)(screenWidth*0.30));
+        lp_img_get_card = (ConstraintLayout.LayoutParams) img_get_card.getLayoutParams();
+        lp_img_get_card.width = (int)(screenWidth*0.3);
+        lp_img_get_card.height = (int)(screenWidth*0.26);
 
-        //Toast.makeText(getBaseContext(), String.valueOf(x) + ":" + String.valueOf(y), Toast.LENGTH_SHORT).show();
-
-        lp_img_get_card.setMargins(x, y, 0, 0);
         img_get_card.setLayoutParams(lp_img_get_card);
+
+
 
         txt_card_sum.setText(String.valueOf(palyer_score(1)));
 
