@@ -98,7 +98,7 @@ public class Board extends AppCompatActivity {
             if(nxt_num != 5)
                 flag = false;
 
-            card_type = rnd.nextInt(3)+1;
+            card_type = rnd.nextInt(4)+1;
             if(cards_used[card_type][nxt_num] > 0)
                 flag = true;
 
