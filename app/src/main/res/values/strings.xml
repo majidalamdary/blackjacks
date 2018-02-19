@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">بازی 21 پاسور</string>
+    <string name="title_activity_splash">Splash</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_store">StoreActivity</string>
+    <string name="table_name">meta</string>
+    <string name="database_name">BJ</string>
+    <string name="coin_count">coin_count</string>
+    <string name="title_activity_board">Board</string>
+    <string name="opponent">حریف</string>
+    <string name="player">بازیکن</string>
+    <string name="card_sum">جمع کارت :</string>
+    <string name="title_activity_game_select">Game_select</string>
+    <string name="title_activity_help">Help</string>
+    <string name="title_activity_after_game_select">after_game_select</string>
+    <string name="file_name">coins.sys</string>
+    <string name="site_url">http://sputa-app.ir/app/blackjack/</string>
+
+    <string name="update">بروز رسانی</string>
+    <string name="need_update_message">نسخه جدید برنامه در دسترس می باشد این نسخه ممکن است با مشکل مواجه شود</string>
+
+    <string name="help_msg">در این بازی ابتدا برای شما یک کارت داده شده است. شما می توانید کارت های بیشتری درخواست کنید. مجموع کارت های شما نباید از 21 بیشتر شود. اگر دقیقا برابر با 21 شود شما برنده می شوید. هر زمان که احساس کردید تعداد کارت ها کافی است می توانید انصراف دهید. آنموقع حریف شروع به گرفتن کارت می کند پس از این که حریف نیز انصراف داد هرکس که مجموع اعداد کارت هایش بیشتر باشد برنده می شود. اگر مجموع کارت های حریف از 21 رد شود شما برنده خواهید شد.  در این بازی شاه 4، بی بی 3، سرباز 2 و تک خال 11 شمرده می شود.</string>
+    <string name="remove_ads">تبلیغات برای شما قبلا حذف شده است</string>
+    <string name="not_enough_coin">موجودی شما کافی نمی باشد، می توانید به فروشگاه مراجعه کنید همچنین می توانید از سهمیه روزانه خود در قسمت فروشگاه استفاده کنید</string>
+</resources>
