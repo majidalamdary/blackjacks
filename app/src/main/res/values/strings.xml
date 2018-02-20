@@ -8,6 +8,8 @@
     <string name="table_name">meta</string>
     <string name="database_name">BJ</string>
     <string name="coin_count">coin_count</string>
+    <string name="coin_count_int">200</string>
+
     <string name="title_activity_board">Board</string>
     <string name="opponent">حریف</string>
     <string name="player">بازیکن</string>

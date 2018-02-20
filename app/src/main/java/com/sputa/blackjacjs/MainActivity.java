@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
@@ -60,6 +61,12 @@ import java.io.InputStreamReader;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    functions fun;
+    String
+            font_name = "";
+    Typeface tf;
+
     String m_wlanMacAdd ="";
 
     public MyAsyncTask mm;
@@ -155,7 +162,9 @@ public class MainActivity extends AppCompatActivity {
 //        Adad.initialize(getApplicationContext());
         setContentView(R.layout.activity_main);
 
-
+        fun = new functions();
+        font_name = fun.font_name;
+        tf = Typeface.createFromAsset(getAssets(),font_name );
         // if (MySigCheck(getApplicationContext()) != "18976453"){
         //      Toast.makeText(getApplicationContext(),MySigCheck(getApplicationContext()), Toast.LENGTH_SHORT).show();
         //
@@ -240,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
                     write_successful = true;
                 }
             } catch (IOException e) {
-                Log.e("ERROR:---", "Could not write file to SDCard" + e.getMessage());
+                Log.e("majid", "Could not write file to SDCard1" + e.getMessage());
                 write_successful = false;
 
             }
@@ -248,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
                 mydatabase.execSQL("INSERT INTO " + getResources().getString(R.string.table_name) + " VALUES(" + String.valueOf(v_id) + ",'" + getResources().getString(R.string.coin_count) + "','"+total+"');");
             }
             else {
-                mydatabase.execSQL("INSERT INTO " + getResources().getString(R.string.table_name) + " VALUES(" + String.valueOf(v_id) + ",'" + getResources().getString(R.string.coin_count) + "','500');");
+                mydatabase.execSQL("INSERT INTO " + getResources().getString(R.string.table_name) + " VALUES(" + String.valueOf(v_id) + ",'" + getResources().getString(R.string.coin_count) + "','" + getResources().getString(R.string.coin_count_int) + "');");
                 try {
                     // <span id="IL_AD8" class="IL_AD">check for</span> SDcard
                     root = Environment.getExternalStorageDirectory();
@@ -262,12 +271,12 @@ public class MainActivity extends AppCompatActivity {
                         File file= new File(fileDir, getResources().getString(R.string.file_name));
                         FileWriter filewriter = new FileWriter(file);
                         BufferedWriter out = new BufferedWriter(filewriter);
-                        out.write("500");
+                        out.write( getResources().getString(R.string.coin_count) );
                         out.close();
                         write_successful = true;
                     }
                 } catch (IOException e) {
-                    Log.e("ERROR:---", "Could not write file to SDCard" + e.getMessage());
+                    Log.e("majid", "Could not write file to SDCard2" + e.getMessage());
                     write_successful = false;
                 }
             }
@@ -301,8 +310,11 @@ public class MainActivity extends AppCompatActivity {
                     in.close();
                     write_successful = true;
                 }
+                else
+                {
+                }
             } catch (IOException e) {
-                Log.e("ERROR:---", "Could not write file to SDCard" + e.getMessage());
+                Log.e("majid", "Could not write file to SDCard3" + e.getMessage());
                 write_successful = false;
 
             }
@@ -328,7 +340,7 @@ public class MainActivity extends AppCompatActivity {
                         write_successful = true;
                     }
                 } catch (IOException e) {
-                    Log.e("ERROR:---", "Could not write file to SDCard" + e.getMessage());
+                    Log.e("majid", "Could not write file to SDCard4" + e.getMessage());
                     write_successful = false;
                 }
             }
@@ -388,6 +400,7 @@ public class MainActivity extends AppCompatActivity {
 
         txt_coin_count.setText(coint_count);
 
+        txt_coin_count.setTypeface(tf);
 
 
 
@@ -527,9 +540,9 @@ public class MainActivity extends AppCompatActivity {
                     MyAsyncTask mm1 =  new MyAsyncTask();
                     mm1.url =  getResources().getString(R.string.site_url) +"runSP.php?param=action&mac_id="+m_wlanMacAdd+"&action_type=help";
                     mm1.execute("");
-//                    Intent i=new Intent(MainActivity.this,Help.class);
+                    Intent i=new Intent(MainActivity.this,Help.class);
 
-//                    startActivity(i);
+                    startActivity(i);
                 }
 
                 return true;
