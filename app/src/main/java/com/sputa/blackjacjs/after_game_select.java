@@ -27,21 +27,24 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Game_select extends AppCompatActivity {
+public class after_game_select extends AppCompatActivity {
+
     functions fun;
     String
             font_name = "";
     Typeface tf;
+    String
+            bet ="";
     public String get_coint_count()
     {
         SQLiteDatabase mydatabase = openOrCreateDatabase(getResources().getString(R.string.database_name), MODE_PRIVATE, null);
 
         Cursor resultSet = mydatabase.rawQuery("Select * from "+getResources().getString(R.string.table_name) +" where meta_key='"+getResources().getString(R.string.coin_count)+"'", null);
-
+        //Log.d("majid",String.valueOf(resultSet.getCount())+"1");
         if (resultSet.getCount() > 0) {
             resultSet.moveToFirst();
+            //   et_guild_name.setText(resultSet.getString(1));
         }
-
         return resultSet.getString(2);
     }
     public void set_coint_count(int coint_cnt,String typ)
@@ -66,14 +69,19 @@ public class Game_select extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_select);
+        setContentView(R.layout.activity_after_game_select);
+
+
         fun = new functions();
         font_name = fun.font_name;
         tf = Typeface.createFromAsset(getAssets(),font_name );
-
         String
                 coint_count =get_coint_count();
-
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String value = extras.getString("bet");
+            bet = value;
+        }
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE); // the results will be higher than using the activity context object or the getWindowManager() shortcut
@@ -119,9 +127,33 @@ public class Game_select extends AppCompatActivity {
         final TextView txt_coin_count = (TextView) findViewById(R.id.txt_coin_count);
         txt_coin_count.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) (screenWidth * 0.08));
 
-
-        txt_coin_count.setText(coint_count);
         txt_coin_count.setTypeface(tf);
+        txt_coin_count.setText(coint_count);
+
+
+
+
+        Rect bounds = new Rect();
+        Paint textPaint = txt_coin_count.getPaint();
+        String
+                ss=txt_coin_count.getText().toString();
+
+        textPaint.getTextBounds(ss, 0, ss.length(), bounds);
+        int height_txt_coin_count = bounds.height();
+        int width_txt_coin_count = bounds.width();
+
+
+
+
+
+        textPaint.getTextBounds(ss, 0, ss.length(), bounds);
+        int height_txt_member_name = bounds.height();
+        int width_txt_member_name  = bounds.width();
+
+
+
+
+
 
 
 
@@ -132,84 +164,40 @@ public class Game_select extends AppCompatActivity {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-        final ImageView img = (ImageView) findViewById(R.id.img_new_game);
+        //Toast.makeText(getBaseContext(), String.valueOf(x) + ":" + String.valueOf(y), Toast.LENGTH_SHORT).show();
 
 
 
 
-        final ImageView img2 = (ImageView) findViewById(R.id.coin100);
 
 
-
-
-        final ImageView img3 = (ImageView) findViewById(R.id.coin200);
 
 
 
     }
-    public void clk_50(View view)
-    {
-        if(Integer.valueOf(get_coint_count())>=50) {
-            Intent i = new Intent(Game_select.this, Board.class);
-            i.putExtra("bet", "50");
-            set_coint_count(50, "sub");
+    public void clk_repeat_game(View view) {
+
+        if(Integer.valueOf(get_coint_count())>=(Integer.valueOf(bet)/2)) {
+            Intent i = new Intent(after_game_select.this, Board.class);
+            i.putExtra("bet" ,String.valueOf((Integer.valueOf(bet) / 2)));
+
+            set_coint_count((Integer.valueOf(bet) / 2), "sub");
             Boolean write_successful = false;
-            File root=null;
+            File root = null;
             String
-                    total="";
-            boolean flag=false;
+                    total = "";
+            boolean flag = false;
             try {
                 // <span id="IL_AD8" class="IL_AD">check for</span> SDcard
                 root = Environment.getExternalStorageDirectory();
                 //Log.i(TAG, "path.." + root.getAbsolutePath());
 
                 //check sdcard permission
-                if (root.canWrite()){
+                if (root.canWrite()) {
                     File fileDir = new File(root.getAbsolutePath());
                     fileDir.mkdirs();
 
-                    File file= new File(fileDir, getResources().getString(R.string.file_name));
-                    FileWriter filewriter = new FileWriter(file);
-                    BufferedWriter out = new BufferedWriter(filewriter);
-                    out.write(get_coint_count());
-                    out.close();
-                    write_successful = true;
-                }
-            } catch (IOException e) {
-                Log.e("ERROR:---", "Could not write file to SDCard" + e.getMessage());
-                write_successful = false;
-            }
-            finish();
-            startActivity(i);
-
-        }
-        else
-        {
-            Toast.makeText(getBaseContext(), R.string.not_enough_coin,Toast.LENGTH_SHORT).show();
-        }
-    }
-    public void clk_100(View view)
-    {
-        if(Integer.valueOf(get_coint_count())>=100) {
-            Intent i = new Intent(Game_select.this, Board.class);
-            i.putExtra("bet","100");
-            set_coint_count(100, "sub");
-            Boolean write_successful = false;
-            File root=null;
-            String
-                    total="";
-            boolean flag=false;
-            try {
-                // <span id="IL_AD8" class="IL_AD">check for</span> SDcard
-                root = Environment.getExternalStorageDirectory();
-                //Log.i(TAG, "path.." + root.getAbsolutePath());
-
-                //check sdcard permission
-                if (root.canWrite()){
-                    File fileDir = new File(root.getAbsolutePath());
-                    fileDir.mkdirs();
-
-                    File file= new File(fileDir, getResources().getString(R.string.file_name));
+                    File file = new File(fileDir, getResources().getString(R.string.file_name));
                     FileWriter filewriter = new FileWriter(file);
                     BufferedWriter out = new BufferedWriter(filewriter);
                     out.write(get_coint_count());
@@ -225,57 +213,18 @@ public class Game_select extends AppCompatActivity {
         }
         else
         {
-            Toast.makeText(getBaseContext(), R.string.not_enough_coin,Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(),  R.string.not_enough_coin, Toast.LENGTH_SHORT).show();
         }
     }
-    public void clk_200(View view)
-    {
-
-        if(Integer.valueOf(get_coint_count())>=200) {
-            Intent i = new Intent(Game_select.this, Board.class);
-            i.putExtra("bet","200");
-            set_coint_count(200,"sub");
-            Boolean write_successful = false;
-            File root=null;
-            String
-                    total="";
-            boolean flag=false;
-            try {
-                // <span id="IL_AD8" class="IL_AD">check for</span> SDcard
-                root = Environment.getExternalStorageDirectory();
-                //Log.i(TAG, "path.." + root.getAbsolutePath());
-
-                //check sdcard permission
-                if (root.canWrite()){
-                    File fileDir = new File(root.getAbsolutePath());
-                    fileDir.mkdirs();
-
-                    File file= new File(fileDir, getResources().getString(R.string.file_name));
-                    FileWriter filewriter = new FileWriter(file);
-                    BufferedWriter out = new BufferedWriter(filewriter);
-                    out.write(get_coint_count());
-                    out.close();
-                    write_successful = true;
-                }
-            } catch (IOException e) {
-                Log.e("ERROR:---", "Could not write file to SDCard" + e.getMessage());
-                write_successful = false;
-            }
-            finish();
-            startActivity(i);
-        }
-        else
-        {
-            Toast.makeText(getBaseContext(), R.string.not_enough_coin,Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
-    public void onBackPressed() {
-
-        Intent i=new Intent(Game_select.this,MainActivity.class);
+    public void clk_new_game(View view) {
+        Intent i = new Intent(after_game_select.this, Game_select.class);
         finish();
         startActivity(i);
-
     }
+    public void clk_main_menu(View view) {
+        Intent i = new Intent(after_game_select.this, MainActivity.class);
+        finish();
+        startActivity(i);
+    }
+
 }

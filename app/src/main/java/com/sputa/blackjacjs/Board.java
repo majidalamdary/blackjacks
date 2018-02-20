@@ -1,5 +1,6 @@
 package com.sputa.blackjacjs;
 
+import android.graphics.Typeface;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,6 +33,10 @@ import java.util.Random;
 public class Board extends AppCompatActivity {
 
 
+    functions fun;
+    String
+            font_name = "";
+    Typeface tf;
     int[][] cards = new int[5][12];
     int[][] cards_used = new int[5][12];
     int     card_value =0;
@@ -114,6 +119,10 @@ public class Board extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
 
+
+        fun = new functions();
+        font_name = fun.font_name;
+        tf = Typeface.createFromAsset(getAssets(),font_name );
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String value = extras.getString("bet");
@@ -209,7 +218,7 @@ public class Board extends AppCompatActivity {
         final TextView txt_coin_count = (TextView) findViewById(R.id.txt_coin_count);
         txt_coin_count.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) (screenWidth * 0.08));
 
-
+        txt_coin_count.setTypeface(tf);
         txt_coin_count.setText(coint_count);
 
 
@@ -253,7 +262,7 @@ public class Board extends AppCompatActivity {
 
         final  TextView txt_opponent = (TextView) findViewById(R.id.txt_opponent);
         txt_opponent.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int)(screenWidth*0.06));
-
+        txt_opponent.setTypeface(tf);
 
         RelativeLayout lay_opponent_text = (RelativeLayout) findViewById(R.id.lay_opponent_text);
 
@@ -390,7 +399,7 @@ public class Board extends AppCompatActivity {
 
         final  TextView txt_player = (TextView) findViewById(R.id.txt_player);
         txt_player.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) (screenWidth * 0.06));
-
+        txt_player.setTypeface(tf);
 
         RelativeLayout lay_txt_player = (RelativeLayout) findViewById(R.id.lay_player_text);
 
@@ -409,6 +418,11 @@ public class Board extends AppCompatActivity {
         final  TextView txt_card_sum2 = (TextView) findViewById(R.id.txt_card_sum2);
         txt_card_sum2.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) (screenWidth * 0.06));
 
+
+        txt_card_sum.setTypeface(tf);
+        txt_card_sum2.setTypeface(tf);
+        lbl_card_sum.setTypeface(tf);
+        lbl_card_sum2.setTypeface(tf);
 
 
 
@@ -512,10 +526,10 @@ public class Board extends AppCompatActivity {
                 .setCancelable(false)
                 .setPositiveButton("اوکی", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-//                        Intent i=new Intent(Board.this,after_game_select.class);
-//                        i.putExtra("bet",String.valueOf(bet));
-//                        finish();
-//                        startActivity(i);
+                        Intent i=new Intent(Board.this,after_game_select.class);
+                        i.putExtra("bet",String.valueOf(bet));
+                        finish();
+                        startActivity(i);
                     }
                 });
         AlertDialog alert = builder.create();
@@ -529,10 +543,10 @@ public class Board extends AppCompatActivity {
                 .setCancelable(false)
                 .setPositiveButton("اوکی", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-//                        Intent i=new Intent(Board.this,after_game_select.class);
-//                        i.putExtra("bet",String.valueOf(bet));
-//                        finish();
-//                        startActivity(i);
+                        Intent i=new Intent(Board.this,after_game_select.class);
+                        i.putExtra("bet",String.valueOf(bet));
+                        finish();
+                        startActivity(i);
                     }
                 });
         AlertDialog alert = builder.create();

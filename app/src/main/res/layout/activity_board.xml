@@ -95,6 +95,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layoutDirection="ltr"
             android:id="@+id/lay_opponent_board">
 
         </LinearLayout>
@@ -103,6 +104,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layoutDirection="ltr"
             android:id="@+id/lay_player_board" >
 
         </LinearLayout>
