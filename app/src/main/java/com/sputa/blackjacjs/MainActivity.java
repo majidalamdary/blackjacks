@@ -522,9 +522,9 @@ public class MainActivity extends AppCompatActivity {
                     mm1.url =  getResources().getString(R.string.site_url) +"runSP.php?param=action&mac_id="+m_wlanMacAdd+"&action_type=store";
                     mm1.execute("");
 
-//                    Intent i=new Intent(MainActivity.this,StoreActivity.class);
-                    //finish();
-//                    startActivity(i);
+                    Intent i=new Intent(MainActivity.this,StoreActivity.class);
+                 //   finish();
+                    startActivity(i);
                 }
 
                 return true;

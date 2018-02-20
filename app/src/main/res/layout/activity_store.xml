@@ -113,103 +113,13 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="6"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/img_new_game"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/coin1000"
-                    android:clickable="true"
-                    android:onClick="clk_1000" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal"></LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="2"
-            android:orientation="horizontal"></LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="7"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="6"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/coin2000"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginTop="0dp"
-                    android:background="@drawable/coin2000"
-                    android:clickable="true"
-                    android:onClick="clk_2000" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal"></LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="2"
-            android:orientation="horizontal"></LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="7"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="6"
+                android:layout_weight="4"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/removeAds"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginTop="0dp"
                     android:background="@drawable/remove_ads"
                     android:clickable="true"
                     android:onClick="clk_removeAds" />
@@ -226,9 +136,143 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0px"
-            android:layout_weight="3.5"
+            android:layout_weight="1"
             android:orientation="horizontal"></LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="7"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/fullversion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/fullversion"
+                    android:clickable="true"
+                    android:onClick="clk_full_version" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"></LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1"
+            android:orientation="horizontal"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="7"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/freecoin"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/coin100daygift"
+                    android:clickable="true"
+                    android:onClick="clk_coin100_daygift" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"></LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1"
+            android:orientation="horizontal"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="7"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/seeads"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/coin100seeads"
+                    android:clickable="true"
+                    android:onClick="clk_See_ads" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"></LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="3.5"
+            android:orientation="horizontal"></LinearLayout>
 
 
 

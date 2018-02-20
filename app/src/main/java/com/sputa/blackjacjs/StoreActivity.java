@@ -36,6 +36,14 @@ import com.sputa.blackjacjs.util.IabResult;
 import com.sputa.blackjacjs.util.Inventory;
 import com.sputa.blackjacjs.util.Purchase;
 
+import ir.tapsell.sdk.Tapsell;
+import ir.tapsell.sdk.TapsellAd;
+import ir.tapsell.sdk.TapsellAdRequestListener;
+import ir.tapsell.sdk.TapsellAdRequestOptions;
+import ir.tapsell.sdk.TapsellAdShowListener;
+import ir.tapsell.sdk.TapsellRewardListener;
+import ir.tapsell.sdk.TapsellShowOptions;
+
 public class StoreActivity extends AppCompatActivity {
 
     public String get_coint_count()
@@ -76,12 +84,14 @@ public class StoreActivity extends AppCompatActivity {
     static final String TAG = "majid";
 
     // SKUs for our products: the premium upgrade (non-consumable)
-    static final String SKU_CONS1000 = "cons1000";
+    static final String SKU_CONS1000 = "coin1000";
     static final String SKU_CONS2000 = "cons2000";
     static final String SKU_removeAds = "removeAds";
+    static final String SKU_fullVersion = "FullVersion";
 
     // Does the user have the premium upgrade?
     boolean mIsPremium = false;
+    boolean mIsFullPermisson = false;
 
     // (arbitrary) request code for the purchase flow
     static final int RC_REQUEST = 100;
@@ -103,12 +113,16 @@ public class StoreActivity extends AppCompatActivity {
                 Log.d(TAG, "Query inventory was successful.");
                 // does the user have the premium upgrade?
                 mIsPremium = inventory.hasPurchase(SKU_removeAds);
+                mIsFullPermisson = inventory.hasPurchase(SKU_fullVersion);
+
 
 
                 //  Toast.makeText(getBaseContext(),String.valueOf(mIsPremium),Toast.LENGTH_SHORT).show();
                 // update UI accordingly
 
                 Log.d(TAG, "User is " + (mIsPremium ? "PREMIUM" : "NOT PREMIUM"));
+                Log.d(TAG, "User is " + (mIsFullPermisson ? "fullVersion" : "NOT fullVersion"));
+
             }
 
             Log.d(TAG, "Initial inventory query finished; enabling main UI.");
@@ -118,12 +132,12 @@ public class StoreActivity extends AppCompatActivity {
     IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
         public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
             if (result.isFailure()) {
-                Log.d(TAG, "Error purchasing: " + result);
+                Log.d(TAG, "Error purchasing: " + result+"----");
                 Toast.makeText(getBaseContext(),"مشکل در خرید",Toast.LENGTH_SHORT).show();
                 return;
             }
             else if (purchase.getSku().equals(SKU_CONS1000)) {
-                Log.d(TAG, "Purchas successfull");
+                Log.d(TAG, "Purchas successfull"+purchase.getSku());
                 mHelper.consumeAsync(purchase,
                         mConsumeFinishedListener);
                 purchase.getDeveloperPayload();
@@ -162,7 +176,7 @@ public class StoreActivity extends AppCompatActivity {
                 // give user access to premium content and update the UI
             }
             else if (purchase.getSku().equals(SKU_CONS2000)) {
-                Log.d(TAG, "Purchas successfull");
+                Log.d(TAG, "Purchas successfull"+purchase.getSku());
                 mHelper.consumeAsync(purchase,
                         mConsumeFinishedListener);
                 Toast.makeText(getBaseContext(),"هورااااا... خرید با موفقیت انجام شد...2000 سکه به سکه های شما افزوده شد",Toast.LENGTH_LONG).show();
@@ -200,9 +214,19 @@ public class StoreActivity extends AppCompatActivity {
                 // give user access to premium content and update the UI
             }
             else if (purchase.getSku().equals(SKU_removeAds)) {
-                Log.d(TAG, "Purchas successfull");
+                Log.d(TAG, "Purchas successfull"+purchase.getSku());
+                // mHelper.consumeAsync(purchase,mConsumeFinishedListener);
                 //mHelper.consumeAsync(purchase, mConsumeFinishedListener);
                 Toast.makeText(getBaseContext(),"هورااااا... خرید با موفقیت انجام شد.. تبلیغات برای شما حذف شد",Toast.LENGTH_LONG).show();
+                //set_coint_count(2000,"add");
+
+                // give user access to premium content and update the UI
+            }
+            else if (purchase.getSku().equals(SKU_fullVersion)) {
+                Log.d(TAG, "Purchas successfull"+purchase.getSku());
+                // mHelper.consumeAsync(purchase,mConsumeFinishedListener);
+                //mHelper.consumeAsync(purchase, mConsumeFinishedListener);
+                Toast.makeText(getBaseContext(),"هورااااا... خرید با موفقیت انجام شد.. نسخه شما به نسخه کامل ارتقا یافت",Toast.LENGTH_LONG).show();
                 //set_coint_count(2000,"add");
 
                 // give user access to premium content and update the UI
@@ -228,7 +252,6 @@ public class StoreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
-
 
         try {
             String base64EncodedPublicKey = "MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwC919lWH+Pk1XY8KOwEBXZnzSiUkXitreWZ1Kbuo4787M9dQlZ9wmSjpr1b1fbII8epkb0pvwmnjgnF+XBdf+bsv5eIKqR9TfYlnwgU5lcksQ7nrPxSoXwd2A6pnJhFEQzP7KRjLU9E33vemwLe/zssOXhvHrGgYOKfR6MVppyMTM+ArSKkv7EKhvwwYm/xweYF0jqyrP2yutyBFByg4FhAxFtVhbBAUbukrERz2p0CAwEAAQ==";
@@ -400,21 +423,11 @@ public class StoreActivity extends AppCompatActivity {
 //        });
 
 
-        final ImageView img2 = (ImageView) findViewById(R.id.coin2000);
-        LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(btn_width, btn_height);
-        img2.setLayoutParams(lp);
-        x = (int) (-btn_width);
-        y = (int) (distance_from_top) + (btn_height * 1);
-        lp2.setMargins(x, y, 0, 0);
-        img2.setLayoutParams(lp2);
+        final ImageView img2 = (ImageView) findViewById(R.id.fullversion);
+
 
         final ImageView img_removeAds = (ImageView) findViewById(R.id.removeAds);
-        LinearLayout.LayoutParams lp_img_removeAds = new LinearLayout.LayoutParams(btn_width, btn_height);
-        img_removeAds.setLayoutParams(lp);
-        x = (int) (-btn_width);
-        y = (int) (distance_from_top) + (btn_height * 2);
-        lp_img_removeAds.setMargins(x, y, 0, 0);
-        img_removeAds.setLayoutParams(lp_img_removeAds);
+
 
 //        final ImageView img_coin100_day_gift = (ImageView) findViewById(R.id.coin100_day_gift);
 //        LinearLayout.LayoutParams lp_img_coin100_day_gift = new LinearLayout.LayoutParams(btn_width, btn_height);
@@ -617,5 +630,93 @@ public class StoreActivity extends AppCompatActivity {
         finish();
         //startActivity(i);
 
+    }
+
+    public void clk_full_version(View view) {
+
+        if(!mIsFullPermisson) {
+            try {
+                if (mHelper != null) mHelper.flagEndAsync();
+                mHelper.launchPurchaseFlow(this, SKU_fullVersion, RC_REQUEST, mPurchaseFinishedListener, "payload-string");
+            } catch (Exception e2) {
+                Toast.makeText(getBaseContext(), "خطا در ارتباط با پرداخت درون برنامه ای", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else
+        {
+            Toast.makeText(getBaseContext(), "شما قبلا نسخه کامل بازی را خریداری کرده اید", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void clk_See_ads(View view) {
+        Tapsell.initialize(this, "sjbjiqblnggmhkafbihhbdmjhrbmsgqqblapgkmobgagnqrdnrnprmnqcqbpmhsspsolcs");
+        TapsellAdRequestOptions aa = new TapsellAdRequestOptions(2);
+        Tapsell.requestAd(this, null, aa, new TapsellAdRequestListener() {
+            @Override
+            public void onError(String error) {
+                Toast.makeText(StoreActivity.this, "onError", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAdAvailable(TapsellAd ad) {
+                Toast.makeText(StoreActivity.this, "onAdAvailable", Toast.LENGTH_SHORT).show();
+                TapsellShowOptions ss = new TapsellShowOptions();
+                ss.setBackDisabled(true);
+                ss.setRotationMode(TapsellShowOptions.ROTATION_LOCKED_LANDSCAPE);
+                ss.setShowDialog(true);
+                ad.show(StoreActivity.this, ss, new TapsellAdShowListener() {
+                    @Override
+                    public void onOpened(TapsellAd ad) {
+                        Toast.makeText(StoreActivity.this, "opened", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    @Override
+                    public void onClosed(TapsellAd ad) {
+                        Toast.makeText(StoreActivity.this, "closed", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+            }
+
+            @Override
+            public void onNoAdAvailable() {
+                Toast.makeText(StoreActivity.this, "onNoAdAvailable", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNoNetwork() {
+                Toast.makeText(StoreActivity.this, "onNoNetwork", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onExpiring(TapsellAd ad) {
+                Toast.makeText(StoreActivity.this, "onExpiring", Toast.LENGTH_SHORT).show();
+            }
+        });
+        Tapsell.setRewardListener(new TapsellRewardListener() {
+            @Override
+            public void onAdShowFinished(TapsellAd ad, boolean completed) {
+                // store user reward if ad.isRewardedAd() and completed is true
+                Toast.makeText(StoreActivity.this, "ممنون که ویدیو را نگاه کردید", Toast.LENGTH_SHORT).show();
+
+
+
+                    set_coint_count(50, "add");
+                    TextView txt_coint_count = (TextView) findViewById(R.id.txt_coin_count);
+                    txt_coint_count.setText(get_coint_count());
+                    //   Toast.makeText(getBaseContext(),"",Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(StoreActivity.this);
+                    builder.setMessage("تعداد " + "50" + " سکه به سکه های شما افزوده شد")
+                            .setCancelable(false)
+                            .setPositiveButton("ممنونم", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+
+            }
+        });
     }
 }
