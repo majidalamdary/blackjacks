@@ -55,9 +55,9 @@ import java.io.InputStreamReader;
 
 //import ir.adad.client.Adad;
 //
-//import sputa.com.blackjack.util.IabHelper;
-//import sputa.com.blackjack.util.IabResult;
-//import sputa.com.blackjack.util.Inventory;
+import com.sputa.blackjacjs.util.IabHelper;
+import com.sputa.blackjacjs.util.IabResult;
+import com.sputa.blackjacjs.util.Inventory;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -97,49 +97,49 @@ public class MainActivity extends AppCompatActivity {
     static final int RC_REQUEST = 100;
 
     // The helper object
-//    IabHelper mHelper;
-//
-//    Inventory in;
-//    IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
-//        public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
-//            in=inventory;
-//            Log.d(TAG, "Query inventory finished.");
-//            if (result.isFailure()) {
-//                Log.d(TAG, "Failed to query inventory: " + result);
-//                return;
-//
-//            }
-//            else {
-//                Log.d(TAG, "Query inventory was successful.");
-//                // does the user have the premium upgrade?
-//                mIsPremium = inventory.hasPurchase(SKU_removeAds);
-//
-//
-//                //  Toast.makeText(getBaseContext(), String.valueOf(mIsPremium), Toast.LENGTH_SHORT).show();
-//                // update UI accordingly
-//                if(mIsPremium) {
-//                    RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.lay_ad);
-//                    mainLayout.setVisibility(LinearLayout.GONE);
-//
-//                    SharedPreferences prefs = getSharedPreferences("m1", Context.MODE_PRIVATE);
-//                    prefs.edit().putString("removeAds", "true").apply();
-//
-//
-//                }
-//                else
-//                {
-//                    SharedPreferences prefs = getSharedPreferences("m1", Context.MODE_PRIVATE);
-//                    prefs.edit().putString("removeAds", "false").apply();
-//                    RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.lay_ad);
-//                    mainLayout.setVisibility(LinearLayout.VISIBLE);
-//                }
-//                Log.d(TAG, "User is " + (mIsPremium ? "PREMIUM" : "NOT PREMIUM"));
-//            }
-//
-//            Log.d(TAG, "Initial inventory query finished; enabling main UI.");
-//        }
-//    };
-//
+    IabHelper mHelper;
+
+    Inventory in;
+    IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
+        public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
+            in=inventory;
+            Log.d(TAG, "Query inventory finished.");
+            if (result.isFailure()) {
+                Log.d(TAG, "Failed to query inventory: " + result);
+                return;
+
+            }
+            else {
+                Log.d(TAG, "Query inventory was successful.");
+                // does the user have the premium upgrade?
+                mIsPremium = inventory.hasPurchase(SKU_removeAds);
+
+
+                //  Toast.makeText(getBaseContext(), String.valueOf(mIsPremium), Toast.LENGTH_SHORT).show();
+                // update UI accordingly
+                if(mIsPremium) {
+                    RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.lay_ad);
+                    mainLayout.setVisibility(LinearLayout.GONE);
+
+                    SharedPreferences prefs = getSharedPreferences("m1", Context.MODE_PRIVATE);
+                    prefs.edit().putString("removeAds", "true").apply();
+
+
+                }
+                else
+                {
+                    SharedPreferences prefs = getSharedPreferences("m1", Context.MODE_PRIVATE);
+                    prefs.edit().putString("removeAds", "false").apply();
+                    RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.lay_ad);
+                    mainLayout.setVisibility(LinearLayout.VISIBLE);
+                }
+                Log.d(TAG, "User is " + (mIsPremium ? "PREMIUM" : "NOT PREMIUM"));
+            }
+
+            Log.d(TAG, "Initial inventory query finished; enabling main UI.");
+        }
+    };
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -147,11 +147,11 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
 
         // Pass on the activity result to the helper for handling
-//        if (!mHelper.handleActivityResult(requestCode, resultCode, data)) {
-//            super.onActivityResult(requestCode, resultCode, data);
-//        } else {
-//            Log.d(TAG, "onActivityResult handled by IABUtil.");
-//        }
+        if (!mHelper.handleActivityResult(requestCode, resultCode, data)) {
+            super.onActivityResult(requestCode, resultCode, data);
+        } else {
+            Log.d(TAG, "onActivityResult handled by IABUtil.");
+        }
 
     }
     public static Context mContext;
@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         //      Toast.makeText(getApplicationContext(),MySigCheck(getApplicationContext()), Toast.LENGTH_SHORT).show();
         //
         // }
-        WifiManager m_wm = (WifiManager)getSystemService(Context.WIFI_SERVICE);
+        WifiManager m_wm = (WifiManager)getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         m_wlanMacAdd = m_wm.getConnectionInfo().getMacAddress();
 
         mm =  new MyAsyncTask();
@@ -180,29 +180,29 @@ public class MainActivity extends AppCompatActivity {
             mm.execute("");
         }
 
-//        try {
-//            String base64EncodedPublicKey = "MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwC344kgPG3no1vIFT3orKxtzGlJb1rSR+xUdKxWo9LW/uF+rIdmE+e9lnTRzeI3cwVzzoMrlauZr6bSgwvX/p1Ar6gCJ69fpzCLMduSBK7LoYjsbymIgg0HJD+NQU/reFnoMERF6gcepG5pAOAT6KFtH9CUv9PPZollFhEHikcAXFh6ys/7zQCJoTpRHXWf80tZxBTtd3gfW+WJfKlGT0y7RL6B66PCs+fNlaLjoFUCAwEAAQ==";
-//// You can find it in your Bazaar console, in the Dealers section.
-//// It is recommended to add more security than just pasting it in your source code;
-//            mHelper = new IabHelper(this, base64EncodedPublicKey);
-//
-//            Log.d(TAG, "Starting setup.");
-//            mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
-//                public void onIabSetupFinished(IabResult result) {
-//                    Log.d(TAG, "Setup finished.");
-//
-//                    if (!result.isSuccess()) {
-//                        // Oh noes, there was a problem.
-//                        Log.d(TAG, "Problem setting up In-app Billing: " + result);
-//                    }
-//                    // Hooray, IAB is fully set up!
-//                    mHelper.queryInventoryAsync(mGotInventoryListener);
-//                }
-//            });
-//        }
-//        catch (Exception e2){
-//            //   Toast.makeText(getBaseContext(),"خطا در ارتباط با پرداخت درون برنامه ای",Toast.LENGTH_SHORT).show();
-//        }
+        try {
+            String base64EncodedPublicKey = "MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwC919lWH+Pk1XY8KOwEBXZnzSiUkXitreWZ1Kbuo4787M9dQlZ9wmSjpr1b1fbII8epkb0pvwmnjgnF+XBdf+bsv5eIKqR9TfYlnwgU5lcksQ7nrPxSoXwd2A6pnJhFEQzP7KRjLU9E33vemwLe/zssOXhvHrGgYOKfR6MVppyMTM+ArSKkv7EKhvwwYm/xweYF0jqyrP2yutyBFByg4FhAxFtVhbBAUbukrERz2p0CAwEAAQ==";
+// You can find it in your Bazaar console, in the Dealers section.
+// It is recommended to add more security than just pasting it in your source code;
+            mHelper = new IabHelper(this, base64EncodedPublicKey);
+
+            Log.d(TAG, "Starting setup.");
+            mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+                public void onIabSetupFinished(IabResult result) {
+                    Log.d(TAG, "Setup finished.");
+
+                    if (!result.isSuccess()) {
+                        // Oh noes, there was a problem.
+                        Log.d(TAG, "Problem setting up In-app Billing: " + result);
+                    }
+                    // Hooray, IAB is fully set up!
+                    mHelper.queryInventoryAsync(mGotInventoryListener);
+                }
+            });
+        }
+        catch (Exception e2){
+            //   Toast.makeText(getBaseContext(),"خطا در ارتباط با پرداخت درون برنامه ای",Toast.LENGTH_SHORT).show();
+        }
 
 
         SQLiteDatabase mydatabase = openOrCreateDatabase(getResources().getString(R.string.database_name), MODE_PRIVATE, null);

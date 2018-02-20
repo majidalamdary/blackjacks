@@ -30,7 +30,8 @@
         <activity android:name=".Game_select" />
         <activity android:name=".Board" />
         <activity android:name=".after_game_select" />
-        <activity android:name=".Help"></activity>
+        <activity android:name=".Help" />
+        <activity android:name=".StoreActivity"></activity>
     </application>
 
 </manifest>
