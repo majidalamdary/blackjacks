@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="rtl"
     tools:context=".Board"
     android:background="@drawable/background">
 
@@ -36,20 +37,6 @@
                 android:textColor="#efff53" />
 
 
-
-            <ImageView
-                android:layout_width="29dp"
-                android:layout_height="29dp"
-                android:id="@+id/img_new_member"
-                android:background="@drawable/new_member" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="526"
-                android:id="@+id/txt_member_name"
-                android:textColor="#efff53" />
-
         </LinearLayout>
 
         <RelativeLayout
@@ -69,19 +56,38 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/lay_opponent_text"
             android:layout_width="match_parent"
-            android:layout_height="49dp"
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/lay_opponent_text">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
 
             <TextView
+                android:id="@+id/lbl_card_sum2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/txt_opponent"
+                android:layout_alignBottom="@+id/txt_opponent"
+                android:text="@string/card_sum"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/opponent"
+                android:textColor="#ffa34e" />
+
+            <TextView
+                android:id="@+id/txt_card_sum2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/lbl_card_sum2"
+                android:layout_toEndOf="@+id/lbl_card_sum2"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ffa34e" />
+
+            <TextView
                 android:id="@+id/txt_opponent"
-                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
+                android:text="@string/opponent"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#efff53" />
         </RelativeLayout>
 
@@ -118,15 +124,15 @@
                 android:textColor="#efff53" />
 
             <TextView
+                android:id="@+id/lbl_card_sum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_alignBaseline="@+id/txt_player"
+                android:layout_alignBottom="@+id/txt_player"
+                android:layout_alignParentStart="true"
                 android:text="@string/card_sum"
-                android:id="@+id/lbl_card_sum"
-                android:textColor="#ffa34e"
-                android:layout_alignTop="@+id/txt_player"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ffa34e" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -136,8 +142,8 @@
                 android:id="@+id/txt_card_sum"
                 android:textColor="#ffa34e"
                 android:layout_alignTop="@+id/lbl_card_sum"
-                android:layout_toLeftOf="@+id/lbl_card_sum"
-                android:layout_toStartOf="@+id/lbl_card_sum" />
+                android:layout_toEndOf="@+id/lbl_card_sum"
+                 />
         </RelativeLayout>
 
         <LinearLayout

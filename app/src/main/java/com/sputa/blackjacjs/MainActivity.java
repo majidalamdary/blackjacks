@@ -720,7 +720,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Double result){
 
             //  pb.setVisibility(View.GONE);
-            Toast.makeText(MainActivity.this, ss, Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(MainActivity.this, ss, Toast.LENGTH_SHORT).show();
             int
                     start=ss.indexOf("<output>");
             int

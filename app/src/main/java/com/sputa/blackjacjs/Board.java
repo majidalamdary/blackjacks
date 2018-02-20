@@ -212,11 +212,6 @@ public class Board extends AppCompatActivity {
 
         txt_coin_count.setText(coint_count);
 
-        final  TextView txt_member_name = (TextView) findViewById(R.id.txt_member_name);
-        txt_member_name.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int)(screenWidth*0.08));
-
-        txt_member_name.setText("مهمان");
-
 
         Rect bounds = new Rect();
         Paint textPaint = txt_coin_count.getPaint();
@@ -229,44 +224,11 @@ public class Board extends AppCompatActivity {
 
 
 
-        bounds = new Rect();
-        textPaint = txt_member_name.getPaint();
-        ss=txt_member_name.getText().toString();
-
-        textPaint.getTextBounds(ss, 0, ss.length(), bounds);
-        int height_txt_member_name = bounds.height();
-        int width_txt_member_name  = bounds.width();
 
 
 
 
 
-        int
-                img_new_member_width = (int)(screenWidth*0.1);
-        final ImageView img_new_member = (ImageView) findViewById(R.id.img_new_member);
-        LinearLayout.LayoutParams lp_new_member = new LinearLayout.LayoutParams((int)img_new_member_width, (int)img_new_member_width);
-        img_new_member.setLayoutParams(lp_new_member);
-        x = screenWidth - img_new_member_width - width_txt_coin_count-img_coin_width-((int)(img_new_member_width*0.3));
-        y = 1;
-
-        //Toast.makeText(getBaseContext(), String.valueOf(x) + ":" + String.valueOf(y), Toast.LENGTH_SHORT).show();
-
-        lp_new_member.setMargins(x, y, 0, 0);
-        img_new_member.setLayoutParams(lp_new_member);
-
-
-
-
-
-        LinearLayout.LayoutParams lp_member_name = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-        x =   (img_new_member_width + ((int)(img_new_member_width*0.3)) + width_txt_member_name)*-1;
-        y = 1;
-
-        //Toast.makeText(getBaseContext(), String.valueOf(x) + ":" + String.valueOf(y), Toast.LENGTH_SHORT).show();
-
-        lp_member_name.setMargins(x, y, 0, 0);
-        txt_member_name.setLayoutParams(lp_member_name);
 
 
         LinearLayout lay_top = (LinearLayout) findViewById(R.id.lay_top);
@@ -333,7 +295,7 @@ public class Board extends AppCompatActivity {
             img_opponent_card[i] = new ImageView(this);
             img_opponent_card[i].setScaleType(ImageView.ScaleType.MATRIX);
             if(i==6)
-                img_opponent_card[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.card_back));
+                img_opponent_card[i].setBackgroundDrawable(getResources().getDrawable(R.drawable.backcard));
 
 
 
@@ -440,6 +402,13 @@ public class Board extends AppCompatActivity {
 
         final  TextView txt_card_sum = (TextView) findViewById(R.id.txt_card_sum);
         txt_card_sum.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) (screenWidth * 0.06));
+
+        final  TextView lbl_card_sum2 = (TextView) findViewById(R.id.lbl_card_sum2);
+        lbl_card_sum2.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) (screenWidth * 0.06));
+
+        final  TextView txt_card_sum2 = (TextView) findViewById(R.id.txt_card_sum2);
+        txt_card_sum2.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) (screenWidth * 0.06));
+
 
 
 
@@ -609,7 +578,7 @@ public class Board extends AppCompatActivity {
 //        }
         if(play_turn.equals("player")) {
             play_turn = "opponent";
-
+            final  TextView txt_card_sum = (TextView) findViewById(R.id.txt_card_sum2);
             Boolean
                     flag = true;
             while (flag) {
@@ -620,6 +589,9 @@ public class Board extends AppCompatActivity {
                 }
                 int
                         score = palyer_score(2);
+                txt_card_sum.setText(String.valueOf(palyer_score(2)));
+              //  Toast.makeText(this, String.valueOf(palyer_score(2)), Toast.LENGTH_SHORT).show();
+
                 if (burned_palyer(2) == 0) {
                     if (score > 12) {
                         int nxt_num = new Random().nextInt(7) + 1;
