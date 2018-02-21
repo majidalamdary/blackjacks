@@ -31,4 +31,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
     compile(name: 'tapsellsdk-android-3.1', ext: 'aar')
     implementation files('libs/adad-client-3.1.jar')
+    compile 'com.google.firebase:firebase-core:11.8.0'
+    compile 'com.google.firebase:firebase-messaging:11.8.0'
 }
+apply plugin: 'com.google.gms.google-services'

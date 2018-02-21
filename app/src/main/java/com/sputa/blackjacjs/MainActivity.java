@@ -1,9 +1,11 @@
 package com.sputa.blackjacjs;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -15,9 +17,12 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -26,6 +31,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -52,12 +58,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
 
 //import ir.adad.client.Adad;
 //
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.sputa.blackjacjs.app.Config;
 import com.sputa.blackjacjs.util.IabHelper;
 import com.sputa.blackjacjs.util.IabResult;
 import com.sputa.blackjacjs.util.Inventory;
+import com.sputa.blackjacjs.util.NotificationUtils;
 
 import ir.adad.client.Adad;
 
@@ -70,9 +80,21 @@ public class MainActivity extends AppCompatActivity {
     Typeface tf;
 
     String m_wlanMacAdd ="";
-
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
     public MyAsyncTask mm;
 
+    public String getDeviceName() {
+        String manufacturer = Build.MANUFACTURER;
+        String model = Build.MODEL;
+        String release = Build.VERSION.RELEASE;
+        int sdkVersion = Build.VERSION.SDK_INT;
+        model += ("---"+sdkVersion + " (" + release +")");
+        if (model.startsWith(manufacturer)) {
+            return (model);
+        } else {
+            return (manufacturer) + " " + model;
+        }
+    }
     public String get_coint_count()
     {
         SQLiteDatabase mydatabase = openOrCreateDatabase(getResources().getString(R.string.database_name), MODE_PRIVATE, null);
@@ -171,16 +193,7 @@ public class MainActivity extends AppCompatActivity {
         //      Toast.makeText(getApplicationContext(),MySigCheck(getApplicationContext()), Toast.LENGTH_SHORT).show();
         //
         // }
-        WifiManager m_wm = (WifiManager)getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        m_wlanMacAdd = m_wm.getConnectionInfo().getMacAddress();
 
-        mm =  new MyAsyncTask();
-
-        {
-
-            mm.url =  getResources().getString(R.string.site_url) +"runSP.php?param=new_user&mac_id="+m_wlanMacAdd;
-            mm.execute("");
-        }
 
 //        try {
 //            String base64EncodedPublicKey = "MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwC919lWH+Pk1XY8KOwEBXZnzSiUkXitreWZ1Kbuo4787M9dQlZ9wmSjpr1b1fbII8epkb0pvwmnjgnF+XBdf+bsv5eIKqR9TfYlnwgU5lcksQ7nrPxSoXwd2A6pnJhFEQzP7KRjLU9E33vemwLe/zssOXhvHrGgYOKfR6MVppyMTM+ArSKkv7EKhvwwYm/xweYF0jqyrP2yutyBFByg4FhAxFtVhbBAUbukrERz2p0CAwEAAQ==";
@@ -484,11 +497,11 @@ public class MainActivity extends AppCompatActivity {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    MyAsyncTask mm1 =  new MyAsyncTask();
-//                    mm1.url =  getResources().getString(R.string.site_url) +"runSP.php?param=action&mac_id="+m_wlanMacAdd+"&action_type=new_game&coin_value="+get_coint_count()+"&version_value="+BuildConfig.VERSION_NAME;
-                    mm1.url =  getResources().getString(R.string.site_url) +"test.php";
-
-                    mm1.execute("");
+//                    MyAsyncTask mm1 =  new MyAsyncTask();
+////                    mm1.url =  getResources().getString(R.string.site_url) +"runSP.php?param=action&mac_id="+m_wlanMacAdd+"&action_type=new_game&coin_value="+get_coint_count()+"&version_value="+BuildConfig.VERSION_NAME;
+//                    mm1.url =  getResources().getString(R.string.site_url) +"test.php";
+//
+//                    mm1.execute("");
                     Intent i=new Intent(MainActivity.this,Game_select.class);
                     finish();
                     startActivity(i);
@@ -520,9 +533,9 @@ public class MainActivity extends AppCompatActivity {
 
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
 
-                    MyAsyncTask mm1 =  new MyAsyncTask();
-                    mm1.url =  getResources().getString(R.string.site_url) +"runSP.php?param=action&mac_id="+m_wlanMacAdd+"&action_type=store";
-                    mm1.execute("");
+//                    MyAsyncTask mm1 =  new MyAsyncTask();
+//                    mm1.url =  getResources().getString(R.string.site_url) +"runSP.php?param=action&mac_id="+m_wlanMacAdd+"&action_type=store";
+//                    mm1.execute("");
 
                     Intent i=new Intent(MainActivity.this,StoreActivity.class);
                  //   finish();
@@ -539,9 +552,9 @@ public class MainActivity extends AppCompatActivity {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    MyAsyncTask mm1 =  new MyAsyncTask();
-                    mm1.url =  getResources().getString(R.string.site_url) +"runSP.php?param=action&mac_id="+m_wlanMacAdd+"&action_type=help";
-                    mm1.execute("");
+//                    MyAsyncTask mm1 =  new MyAsyncTask();
+//                    mm1.url =  getResources().getString(R.string.site_url) +"runSP.php?param=action&mac_id="+m_wlanMacAdd+"&action_type=help";
+//                    mm1.execute("");
                     Intent i=new Intent(MainActivity.this,Help.class);
 
                     startActivity(i);
@@ -574,15 +587,72 @@ public class MainActivity extends AppCompatActivity {
             RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.lay_ad);
             mainLayout.setVisibility(LinearLayout.GONE);
         }
-        mm =  new MyAsyncTask();
+//        mm =  new MyAsyncTask();
+//
+//        {
+//
+//            mm.url =  getResources().getString(R.string.site_url) +"runSP.php?param=get_version";
+//            mm.execute("");
+//        }
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
 
-        {
+                // checking for type intent filter
+                if (intent.getAction().equals(Config.REGISTRATION_COMPLETE)) {
+                    // gcm successfully registered
+                    // now subscribe to `global` topic to receive app wide notifications
+                    FirebaseMessaging.getInstance().subscribeToTopic(Config.TOPIC_GLOBAL);
 
-            mm.url =  getResources().getString(R.string.site_url) +"runSP.php?param=get_version";
-            mm.execute("");
-        }
+                    displayFirebaseRegId();
+
+                } else if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
+                    // new push notification is received
+
+                    String message = intent.getStringExtra("message");
+
+                    Toast.makeText(getApplicationContext(), "Push notification: " + message, Toast.LENGTH_LONG).show();
+
+                    Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        };
+
+        displayFirebaseRegId();
     }
 
+    // Fetches reg id from shared preferences
+    // and displays on the screen
+    private void displayFirebaseRegId() {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
+        String regId = pref.getString("regId", null);
+
+        Log.e(TAG, "Firebase reg id: " + regId);
+        EditText ed1 = findViewById(R.id.editText2);
+        ed1.setText(regId);
+        if (!TextUtils.isEmpty(regId)) {
+            Toast.makeText(this, "Firebase Reg Id: " + regId, Toast.LENGTH_SHORT).show();
+            mm =  new MyAsyncTask();
+
+            {
+
+                mm.url =  getResources().getString(R.string.site_url) +"do.php?param=new_user&gcm_id="+ URLEncoder.encode(regId)+"&user_info="+URLEncoder.encode(getDeviceName());
+
+                mm.execute("");
+            }
+        }
+        else
+            Toast.makeText(this,"Firebase Reg Id is not received yet!", Toast.LENGTH_SHORT).show();
+    }
+
+
+
+    @Override
+    protected void onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
+        super.onPause();
+    }
     @Override
     public void onResume(){
         super.onResume();
@@ -612,7 +682,16 @@ public class MainActivity extends AppCompatActivity {
         catch (Exception e2){
             //   Toast.makeText(getBaseContext(),"خطا در ارتباط با پرداخت درون برنامه ای",Toast.LENGTH_SHORT).show();
         }
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(Config.REGISTRATION_COMPLETE));
 
+        // register new push message receiver
+        // by doing this, the activity will be notified each time a new message arrives
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(Config.PUSH_NOTIFICATION));
+
+        // clear the notification area when the app is opened
+        NotificationUtils.clearNotifications(getApplicationContext());
     }
 
 
@@ -759,7 +838,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Double result){
 
             //  pb.setVisibility(View.GONE);
-          //  Toast.makeText(MainActivity.this, ss, Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, ss+"wwww", Toast.LENGTH_SHORT).show();
             int
                     start=ss.indexOf("<output>");
             int
@@ -769,9 +848,9 @@ public class MainActivity extends AppCompatActivity {
             if(end>0 && ss.length()>0) {
                 output_str = ss.substring(start + 8, end);
                 int
-                        start1 = ss.indexOf("<param_type>");
+                        start1 = ss.indexOf("<param>");
                 int
-                        end1 = ss.indexOf("</param_type>");
+                        end1 = ss.indexOf("</param>");
                 String
                         param_str = "";
                 param_str = ss.substring(start1 + 12, end1);
@@ -794,7 +873,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 if (param_str.equals("new_user")) {
-                    //   Toast.makeText(getBaseContext(),output_str,Toast.LENGTH_SHORT).show();
+                          start1 = ss.indexOf("<result>");
+                          end1 = ss.indexOf("</result>");
+                    String
+                            result1 = "";
+                    result1 = ss.substring(start1 + 8, end1);
+                    Toast.makeText(getBaseContext(),result1,Toast.LENGTH_SHORT).show();
                 }
                 // Toast.makeText(getBaseContext(),param_str+"////"+output_str,Toast.LENGTH_SHORT).show();
 
