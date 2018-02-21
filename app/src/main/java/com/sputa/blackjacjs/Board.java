@@ -30,6 +30,8 @@ import android.widget.Toast;
 
 import java.util.Random;
 
+import ir.adad.client.Adad;
+
 public class Board extends AppCompatActivity {
 
 
@@ -117,6 +119,8 @@ public class Board extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Adad.initialize(getApplicationContext());
+
         setContentView(R.layout.activity_board);
 
 

@@ -29,6 +29,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="ir.adad.client.AdadActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent"/>
+        <meta-data
+            android:name="AdadToken"
+            android:value="c927322172e9450486dc8de81f67850b" />
+        <meta-data
+            android:name="AdadTestMode"
+            android:value="true"/>
+
         <activity android:name=".Game_select" />
         <activity android:name=".Board" />
         <activity android:name=".after_game_select" />

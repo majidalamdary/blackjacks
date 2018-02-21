@@ -59,6 +59,8 @@ import com.sputa.blackjacjs.util.IabHelper;
 import com.sputa.blackjacjs.util.IabResult;
 import com.sputa.blackjacjs.util.Inventory;
 
+import ir.adad.client.Adad;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -113,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "Query inventory was successful.");
                 // does the user have the premium upgrade?
                 mIsPremium = inventory.hasPurchase(SKU_removeAds);
-
+             //   Toast.makeText(MainActivity.this, String.valueOf(mIsPremium), Toast.LENGTH_SHORT).show();
 
                 //  Toast.makeText(getBaseContext(), String.valueOf(mIsPremium), Toast.LENGTH_SHORT).show();
                 // update UI accordingly
@@ -159,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        Adad.initialize(getApplicationContext());
+        Adad.initialize(getApplicationContext());
         setContentView(R.layout.activity_main);
 
         fun = new functions();
@@ -180,29 +182,29 @@ public class MainActivity extends AppCompatActivity {
             mm.execute("");
         }
 
-        try {
-            String base64EncodedPublicKey = "MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwC919lWH+Pk1XY8KOwEBXZnzSiUkXitreWZ1Kbuo4787M9dQlZ9wmSjpr1b1fbII8epkb0pvwmnjgnF+XBdf+bsv5eIKqR9TfYlnwgU5lcksQ7nrPxSoXwd2A6pnJhFEQzP7KRjLU9E33vemwLe/zssOXhvHrGgYOKfR6MVppyMTM+ArSKkv7EKhvwwYm/xweYF0jqyrP2yutyBFByg4FhAxFtVhbBAUbukrERz2p0CAwEAAQ==";
-// You can find it in your Bazaar console, in the Dealers section.
-// It is recommended to add more security than just pasting it in your source code;
-            mHelper = new IabHelper(this, base64EncodedPublicKey);
-
-            Log.d(TAG, "Starting setup.");
-            mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
-                public void onIabSetupFinished(IabResult result) {
-                    Log.d(TAG, "Setup finished.");
-
-                    if (!result.isSuccess()) {
-                        // Oh noes, there was a problem.
-                        Log.d(TAG, "Problem setting up In-app Billing: " + result);
-                    }
-                    // Hooray, IAB is fully set up!
-                    mHelper.queryInventoryAsync(mGotInventoryListener);
-                }
-            });
-        }
-        catch (Exception e2){
-            //   Toast.makeText(getBaseContext(),"خطا در ارتباط با پرداخت درون برنامه ای",Toast.LENGTH_SHORT).show();
-        }
+//        try {
+//            String base64EncodedPublicKey = "MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwC919lWH+Pk1XY8KOwEBXZnzSiUkXitreWZ1Kbuo4787M9dQlZ9wmSjpr1b1fbII8epkb0pvwmnjgnF+XBdf+bsv5eIKqR9TfYlnwgU5lcksQ7nrPxSoXwd2A6pnJhFEQzP7KRjLU9E33vemwLe/zssOXhvHrGgYOKfR6MVppyMTM+ArSKkv7EKhvwwYm/xweYF0jqyrP2yutyBFByg4FhAxFtVhbBAUbukrERz2p0CAwEAAQ==";
+//// You can find it in your Bazaar console, in the Dealers section.
+//// It is recommended to add more security than just pasting it in your source code;
+//            mHelper = new IabHelper(this, base64EncodedPublicKey);
+//
+//            Log.d(TAG, "Starting setup.");
+//            mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+//                public void onIabSetupFinished(IabResult result) {
+//                    Log.d(TAG, "Setup finished.");
+//
+//                    if (!result.isSuccess()) {
+//                        // Oh noes, there was a problem.
+//                        Log.d(TAG, "Problem setting up In-app Billing: " + result);
+//                    }
+//                    // Hooray, IAB is fully set up!
+//                    mHelper.queryInventoryAsync(mGotInventoryListener);
+//                }
+//            });
+//        }
+//        catch (Exception e2){
+//            //   Toast.makeText(getBaseContext(),"خطا در ارتباط با پرداخت درون برنامه ای",Toast.LENGTH_SHORT).show();
+//        }
 
 
         SQLiteDatabase mydatabase = openOrCreateDatabase(getResources().getString(R.string.database_name), MODE_PRIVATE, null);
@@ -587,6 +589,30 @@ public class MainActivity extends AppCompatActivity {
         // put your code here...
         TextView txt = (TextView) findViewById(R.id.txt_coin_count);
         txt.setText(get_coint_count());
+        try {
+            String base64EncodedPublicKey = "MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwC919lWH+Pk1XY8KOwEBXZnzSiUkXitreWZ1Kbuo4787M9dQlZ9wmSjpr1b1fbII8epkb0pvwmnjgnF+XBdf+bsv5eIKqR9TfYlnwgU5lcksQ7nrPxSoXwd2A6pnJhFEQzP7KRjLU9E33vemwLe/zssOXhvHrGgYOKfR6MVppyMTM+ArSKkv7EKhvwwYm/xweYF0jqyrP2yutyBFByg4FhAxFtVhbBAUbukrERz2p0CAwEAAQ==";
+// You can find it in your Bazaar console, in the Dealers section.
+// It is recommended to add more security than just pasting it in your source code;
+            mHelper = new IabHelper(this, base64EncodedPublicKey);
+
+            Log.d(TAG, "Starting setup.");
+            mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+                public void onIabSetupFinished(IabResult result) {
+                    Log.d(TAG, "Setup finished.");
+
+                    if (!result.isSuccess()) {
+                        // Oh noes, there was a problem.
+                        Log.d(TAG, "Problem setting up In-app Billing: " + result);
+                    }
+                    // Hooray, IAB is fully set up!
+                    mHelper.queryInventoryAsync(mGotInventoryListener);
+                }
+            });
+        }
+        catch (Exception e2){
+            //   Toast.makeText(getBaseContext(),"خطا در ارتباط با پرداخت درون برنامه ای",Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 

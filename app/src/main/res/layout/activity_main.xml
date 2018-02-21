@@ -121,7 +121,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="8"
+                android:layout_weight="5"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -163,7 +163,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="8"
+                android:layout_weight="5"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -206,7 +206,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="8"
+                android:layout_weight="5"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -249,7 +249,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="8"
+                android:layout_weight="5"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -285,7 +285,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight=".5"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -295,12 +295,13 @@
             android:orientation="horizontal"
 
             >
-            <!--<ir.adad.client.Banner-->
-            <!--android:id="@+id/banner_ad_view"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_centerHorizontal="true"  />-->
+
+            <ir.adad.client.Banner
+                android:id="@+id/banner_ad_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true" />
         </RelativeLayout>
 
     </LinearLayout>
