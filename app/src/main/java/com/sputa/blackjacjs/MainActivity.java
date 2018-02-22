@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "Query inventory was successful.");
                 // does the user have the premium upgrade?
                 mIsPremium = inventory.hasPurchase(SKU_removeAds);
-             //   Toast.makeText(MainActivity.this, String.valueOf(mIsPremium), Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(MainActivity.this, String.valueOf(mIsPremium), Toast.LENGTH_SHORT).show();
 
                 //  Toast.makeText(getBaseContext(), String.valueOf(mIsPremium), Toast.LENGTH_SHORT).show();
                 // update UI accordingly
@@ -611,9 +611,9 @@ public class MainActivity extends AppCompatActivity {
 
                     String message = intent.getStringExtra("message");
 
-                    Toast.makeText(getApplicationContext(), "Push notification: " + message, Toast.LENGTH_LONG).show();
+                  //  Toast.makeText(getApplicationContext(), "Push notification: " + message, Toast.LENGTH_LONG).show();
 
-                    Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -632,7 +632,7 @@ public class MainActivity extends AppCompatActivity {
         EditText ed1 = findViewById(R.id.editText2);
         ed1.setText(regId);
         if (!TextUtils.isEmpty(regId)) {
-            Toast.makeText(this, "Firebase Reg Id: " + regId, Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(this, "Firebase Reg Id: " + regId, Toast.LENGTH_SHORT).show();
             mm =  new MyAsyncTask();
 
             {
@@ -642,8 +642,8 @@ public class MainActivity extends AppCompatActivity {
                 mm.execute("");
             }
         }
-        else
-            Toast.makeText(this,"Firebase Reg Id is not received yet!", Toast.LENGTH_SHORT).show();
+//        else
+//            Toast.makeText(this,"Firebase Reg Id is not received yet!", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -682,6 +682,14 @@ public class MainActivity extends AppCompatActivity {
         catch (Exception e2){
             //   Toast.makeText(getBaseContext(),"خطا در ارتباط با پرداخت درون برنامه ای",Toast.LENGTH_SHORT).show();
         }
+
+
+
+
+
+
+
+
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
                 new IntentFilter(Config.REGISTRATION_COMPLETE));
 
@@ -838,7 +846,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Double result){
 
             //  pb.setVisibility(View.GONE);
-            Toast.makeText(MainActivity.this, ss+"wwww", Toast.LENGTH_SHORT).show();
+         //   Toast.makeText(MainActivity.this, ss, Toast.LENGTH_SHORT).show();
             int
                     start=ss.indexOf("<output>");
             int
@@ -853,32 +861,32 @@ public class MainActivity extends AppCompatActivity {
                         end1 = ss.indexOf("</param>");
                 String
                         param_str = "";
-                param_str = ss.substring(start1 + 12, end1);
+                param_str = ss.substring(start1 + 7, end1);
 
-                if (param_str.equals("get_version")) {
-                    int
-                            i = 0;
-                    try {
-                        i = Integer.valueOf(output_str);
-                    } catch (Exception e1) {
-                        //    Log.d("majid", e1.getMessage()+"---"+ss+"---");
-                    }
-                    // Log.d("majid",String.valueOf(i));
-                    if (i > 0) {
-
-                        if (i != BuildConfig.VERSION_CODE) {
-                            Toast.makeText(getBaseContext(), getResources().getString(R.string.need_update_message), Toast.LENGTH_LONG).show();
-
-                        }
-                    }
-                }
+//                if (param_str.equals("get_version")) {
+//                    int
+//                            i = 0;
+//                    try {
+//                        i = Integer.valueOf(output_str);
+//                    } catch (Exception e1) {
+//                        //    Log.d("majid", e1.getMessage()+"---"+ss+"---");
+//                    }
+//                    // Log.d("majid",String.valueOf(i));
+//                    if (i > 0) {
+//
+//                        if (i != BuildConfig.VERSION_CODE) {
+//                            Toast.makeText(getBaseContext(), getResources().getString(R.string.need_update_message), Toast.LENGTH_LONG).show();
+//
+//                        }
+//                    }
+//                }
                 if (param_str.equals("new_user")) {
                           start1 = ss.indexOf("<result>");
                           end1 = ss.indexOf("</result>");
                     String
                             result1 = "";
                     result1 = ss.substring(start1 + 8, end1);
-                    Toast.makeText(getBaseContext(),result1,Toast.LENGTH_SHORT).show();
+               //     Toast.makeText(getBaseContext(),result1,Toast.LENGTH_SHORT).show();
                 }
                 // Toast.makeText(getBaseContext(),param_str+"////"+output_str,Toast.LENGTH_SHORT).show();
 

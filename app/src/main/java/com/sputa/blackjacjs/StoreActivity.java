@@ -81,7 +81,7 @@ public class StoreActivity extends AppCompatActivity {
 
     // Debug tag, for logging
     String  gift_coin_count="200";
-    static final String TAG = "majid";
+    static final String TAG = "bazar";
 
     // SKUs for our products: the premium upgrade (non-consumable)
     static final String SKU_CONS1000 = "coin1000";
