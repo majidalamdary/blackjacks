@@ -36,6 +36,9 @@ import com.sputa.blackjacjs.util.IabResult;
 import com.sputa.blackjacjs.util.Inventory;
 import com.sputa.blackjacjs.util.Purchase;
 
+import org.json.JSONObject;
+
+import ir.adad.client.Adad;
 import ir.tapsell.sdk.Tapsell;
 import ir.tapsell.sdk.TapsellAd;
 import ir.tapsell.sdk.TapsellAdRequestListener;
@@ -228,7 +231,7 @@ public class StoreActivity extends AppCompatActivity {
                 // mHelper.consumeAsync(purchase,mConsumeFinishedListener);
                 //mHelper.consumeAsync(purchase, mConsumeFinishedListener);
                 mIsFullPermisson=true;
-                Toast.makeText(getBaseContext(),"هورااااا... خرید با موفقیت انجام شد.. نسخه شما به نسخه کامل ارتقا یافت",Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(),"هورااااا... خرید با موفقیت انجام شد.. نسخه شما به نسخه کامل ارتقا یافت - اکنون می توانید از صفحه اصلی برنامه تعداد سکه های خود را افزایش دهید",Toast.LENGTH_LONG).show();
                 //set_coint_count(2000,"add");
 
                 // give user access to premium content and update the UI
@@ -256,36 +259,43 @@ public class StoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_store);
 
         Tapsell.initialize(this, "sjbjiqblnggmhkafbihhbdmjhrbmsgqqblapgkmobgagnqrdnrnprmnqcqbpmhsspsolcs");
-        TapsellAdRequestOptions aa = new TapsellAdRequestOptions(1);
+        TapsellAdRequestOptions aa = new TapsellAdRequestOptions(2);
         Tapsell.requestAd(this, null, aa, new TapsellAdRequestListener() {
             @Override
             public void onError(String error) {
-                Toast.makeText(StoreActivity.this, "onError", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StoreActivity.this, "بروز خطا", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onAdAvailable(TapsellAd ad) {
                 isAvailable =1;
                 ad1=ad;
-                Toast.makeText(StoreActivity.this, "onAdAvailable", Toast.LENGTH_SHORT).show();
+            //    Toast.makeText(StoreActivity.this, "ویدیو آماده است", Toast.LENGTH_SHORT).show();
 
             }
 
             @Override
             public void onNoAdAvailable() {
-                Toast.makeText(StoreActivity.this, "onNoAdAvailable", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StoreActivity.this, "تبلیغات در دسترس نیست", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onNoNetwork() {
-                Toast.makeText(StoreActivity.this, "onNoNetwork", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StoreActivity.this, "خطای شبکه", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onExpiring(TapsellAd ad) {
-                Toast.makeText(StoreActivity.this, "onExpiring", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StoreActivity.this, "تبلیغات منقضی شده است", Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
+
+
+
+
         try {
             String base64EncodedPublicKey = "MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwC919lWH+Pk1XY8KOwEBXZnzSiUkXitreWZ1Kbuo4787M9dQlZ9wmSjpr1b1fbII8epkb0pvwmnjgnF+XBdf+bsv5eIKqR9TfYlnwgU5lcksQ7nrPxSoXwd2A6pnJhFEQzP7KRjLU9E33vemwLe/zssOXhvHrGgYOKfR6MVppyMTM+ArSKkv7EKhvwwYm/xweYF0jqyrP2yutyBFByg4FhAxFtVhbBAUbukrERz2p0CAwEAAQ==";
 // You can find it in your Bazaar console, in the Dealers section.
@@ -677,26 +687,56 @@ public class StoreActivity extends AppCompatActivity {
         }
         else
         {
-            Toast.makeText(getBaseContext(), "شما قبلا نسخه کامل بازی را خریداری کرده اید", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "شما قبلا نسخه کامل بازی را خریداری کرده اید - برای شما تبلیغات حذف شده است و از صفحه اصلی برنامه می توانید تعداد سکه های خود را افزایش دهید", Toast.LENGTH_SHORT).show();
         }
     }
     private TapsellAd ad1;
     public int isAvailable =0;
     public void clk_See_ads(View view) {
+        TapsellAdRequestOptions aa = new TapsellAdRequestOptions(2);
+        Tapsell.requestAd(this, null, aa, new TapsellAdRequestListener() {
+            @Override
+            public void onError(String error) {
+                Toast.makeText(StoreActivity.this, "بروز خطا", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAdAvailable(TapsellAd ad) {
+                isAvailable =1;
+                ad1=ad;
+                Toast.makeText(StoreActivity.this, "ویدیو آماده است", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onNoAdAvailable() {
+                Toast.makeText(StoreActivity.this, "تبلیغات در دسترس نیست", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNoNetwork() {
+                Toast.makeText(StoreActivity.this, "خطای شبکه", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onExpiring(TapsellAd ad) {
+                Toast.makeText(StoreActivity.this, "تبلیغات منقضی شده است", Toast.LENGTH_SHORT).show();
+            }
+        });
         TapsellShowOptions ss = new TapsellShowOptions();
-        ss.setBackDisabled(true);
+        ss.setBackDisabled(false);
         ss.setRotationMode(TapsellShowOptions.ROTATION_LOCKED_LANDSCAPE);
         ss.setShowDialog(true);
         ad1.show(StoreActivity.this, ss, new TapsellAdShowListener() {
             @Override
             public void onOpened(TapsellAd ad) {
-                Toast.makeText(StoreActivity.this, "opened", Toast.LENGTH_SHORT).show();
+          //      Toast.makeText(StoreActivity.this, "opened", Toast.LENGTH_SHORT).show();
 
             }
 
             @Override
             public void onClosed(TapsellAd ad) {
-                Toast.makeText(StoreActivity.this, "closed", Toast.LENGTH_SHORT).show();
+         //       Toast.makeText(StoreActivity.this, "closed", Toast.LENGTH_SHORT).show();
 
             }
         });

@@ -113,9 +113,13 @@ public class MainActivity extends AppCompatActivity {
     static final String SKU_CONS1000 = "cons1000";
     static final String SKU_CONS2000 = "cons2000";
     static final String SKU_removeAds = "removeAds";
+    static final String SKU_fullVersion = "FullVersion";
+
 
     // Does the user have the premium upgrade?
     boolean mIsPremium = false;
+    boolean mIsFullVersion = false;
+
 
     // (arbitrary) request code for the purchase flow
     static final int RC_REQUEST = 100;
@@ -137,6 +141,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "Query inventory was successful.");
                 // does the user have the premium upgrade?
                 mIsPremium = inventory.hasPurchase(SKU_removeAds);
+                mIsFullVersion= inventory.hasPurchase(SKU_fullVersion);
+
               //  Toast.makeText(MainActivity.this, String.valueOf(mIsPremium), Toast.LENGTH_SHORT).show();
 
                 //  Toast.makeText(getBaseContext(), String.valueOf(mIsPremium), Toast.LENGTH_SHORT).show();
@@ -157,6 +163,25 @@ public class MainActivity extends AppCompatActivity {
                     RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.lay_ad);
                     mainLayout.setVisibility(LinearLayout.VISIBLE);
                 }
+                if(mIsFullVersion) {
+                    ImageView img1=findViewById(R.id.img_plus);
+                    img1.setVisibility(View.VISIBLE);
+                    RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.lay_ad);
+                    mainLayout.setVisibility(LinearLayout.GONE);
+                    SharedPreferences prefs = getSharedPreferences("m1", Context.MODE_PRIVATE);
+                    prefs.edit().putString("fullVersion", "true").apply();
+
+
+                }
+                else
+                {
+                    SharedPreferences prefs = getSharedPreferences("m1", Context.MODE_PRIVATE);
+                    prefs.edit().putString("fullVersion", "false").apply();
+                    ImageView img1=findViewById(R.id.img_plus);
+                    img1.setVisibility(View.INVISIBLE);
+
+                }
+
                 Log.d(TAG, "User is " + (mIsPremium ? "PREMIUM" : "NOT PREMIUM"));
             }
 
@@ -587,6 +612,15 @@ public class MainActivity extends AppCompatActivity {
             RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.lay_ad);
             mainLayout.setVisibility(LinearLayout.GONE);
         }
+        String restoredText1 = prefs.getString("fullVersion", "");
+        if (restoredText1.equals("true"))
+        {
+            ImageView img11=findViewById(R.id.img_plus);
+            img11.setVisibility(View.VISIBLE);
+            RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.lay_ad);
+            mainLayout.setVisibility(LinearLayout.GONE);
+        }
+
 //        mm =  new MyAsyncTask();
 //
 //        {
@@ -808,7 +842,7 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("اوکی", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent intent = new Intent(Intent.ACTION_EDIT);
-                        intent.setData(Uri.parse("bazaar://details?id=sputa.com.blackjack"));
+                        intent.setData(Uri.parse("bazaar://details?id=com.sputa.blackjacjs"));
                         intent.setPackage("com.farsitel.bazaar");
                         startActivity(intent);
                         //   finish();
@@ -817,7 +851,64 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog alert1 = builder1.create();
         alert1.show();
     }
+    public void set_coint_count(int coint_cnt,String typ)
+    {
+        SQLiteDatabase mydatabase = openOrCreateDatabase(getResources().getString(R.string.database_name), MODE_PRIVATE, null);
 
+        Cursor resultSet = mydatabase.rawQuery("Select * from "+getResources().getString(R.string.table_name) +" where meta_key='"+getResources().getString(R.string.coin_count)+"'", null);
+        //Log.d("majid",String.valueOf(resultSet.getCount())+"1");
+        if (resultSet.getCount() > 0) {
+            resultSet.moveToFirst();
+            //   et_guild_name.setText(resultSet.getString(1));
+        }
+        int
+                new_cnt = Integer.parseInt(resultSet.getString(2));
+        if(typ.equals("add"))
+            new_cnt+=coint_cnt;
+        else
+            new_cnt-=coint_cnt;
+        mydatabase.execSQL("update " + getResources().getString(R.string.table_name) + " set meta_value='"+String.valueOf(new_cnt)+"' where meta_key='"+getResources().getString(R.string.coin_count)+"'");
+
+    }
+    public void clk_add_coin(View view) {
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE: { //Yes button clicked
+                        set_coint_count(100, "add");
+
+                        TextView txt_coint_count = (TextView) findViewById(R.id.txt_coin_count);
+                        txt_coint_count.setText(get_coint_count());
+                        break;
+
+                    }
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        //No button clicked
+                    {
+                        set_coint_count(200, "add");
+                        TextView txt_coint_count = (TextView) findViewById(R.id.txt_coin_count);
+                        txt_coint_count.setText(get_coint_count());
+                        break;
+                    }
+                    case DialogInterface.BUTTON_NEUTRAL:
+                        //No button clicked
+                    {
+                        set_coint_count(500, "add");
+                        TextView txt_coint_count = (TextView) findViewById(R.id.txt_coin_count);
+                        txt_coint_count.setText(get_coint_count());
+                        break;
+                    }
+
+            }
+            }
+        };
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("چه تعداد می خواهید به سکه هایتان اضافه شود").setPositiveButton("100", dialogClickListener)
+                .setNegativeButton("200", dialogClickListener).setNeutralButton("500",dialogClickListener).show();
+    }
 
 
     private class MyAsyncTask extends AsyncTask<String, Integer, Double> {

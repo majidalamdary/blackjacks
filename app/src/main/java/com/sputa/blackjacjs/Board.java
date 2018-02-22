@@ -466,6 +466,12 @@ public class Board extends AppCompatActivity {
             RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.lay_ad);
             mainLayout.setVisibility(LinearLayout.GONE);
         }
+        String restoredText1 = prefs.getString("fullVersion", "");
+        if (restoredText1.equals("true"))
+        {
+            RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.lay_ad);
+            mainLayout.setVisibility(LinearLayout.GONE);
+        }
 
 
     }
@@ -473,30 +479,7 @@ public class Board extends AppCompatActivity {
 
     public void clk_get_card(View view) {
 
-//        lay_player_board = (LinearLayout) findViewById(R.id.lay_player_board);
-//
-//        lp_lay_player_board = new LinearLayout.LayoutParams(screenWidth, (int)(screenHeight*0.2));
-//        lay_player_board.setLayoutParams(lp_lay_player_board);
-//        lay_player_board = (LinearLayout) findViewById(R.id.lay_player_board);
-//
-//        lp_lay_player_board = new LinearLayout.LayoutParams(screenWidth, (int)(screenHeight*0.2));
-//        lay_player_board.setLayoutParams(lp_lay_player_board);
-//        ImageView image1 = new ImageView(this);
-//
-//        // Now the layout parameters, these are a little tricky at first
-//        LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams((int)(screenWidth*0.2),(int)(screenHeight*0.15));
-//
-//
-//
-//        image1.setScaleType(ImageView.ScaleType.MATRIX);
-//        image1.setBackgroundDrawable(getResources().getDrawable(R.drawable.pik10));
-//
-//
-//
-//        // Let's get the root layout and add our ImageView
-//        //LinearLayout layout = (LinearLayout) findViewById(R.id.lay_opponent_board);
-//        params1.setMargins(((int)(screenWidth*0.15)), ((int)(screenWidth*0.08)), 0, 0);
-//        lay_player_board.addView(image1, 0, params1);
+
         if(play_turn.equals("player")) {
             if (player_card_index > 0) {
 
