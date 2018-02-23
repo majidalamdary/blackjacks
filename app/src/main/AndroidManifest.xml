@@ -35,7 +35,8 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".MainActivity" >
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -53,15 +54,20 @@
         <meta-data
             android:name="AdadToken"
             android:value="c927322172e9450486dc8de81f67850b" />
-        <meta-data
-            android:name="AdadTestMode"
-            android:value="true" />
+        <!--<meta-data-->
+            <!--android:name="AdadTestMode"-->
+            <!--android:value="true" />-->
 
-        <activity android:name=".Game_select" />
-        <activity android:name=".Board" />
-        <activity android:name=".after_game_select" />
-        <activity android:name=".Help" />
-        <activity android:name=".StoreActivity" />
+        <activity android:name=".Game_select"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".Board"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".after_game_select"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Help"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".StoreActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="ir.tapsell.sdk.TapsellAdActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"></activity>

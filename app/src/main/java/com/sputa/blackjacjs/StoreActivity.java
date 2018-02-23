@@ -83,7 +83,7 @@ public class StoreActivity extends AppCompatActivity {
     public static Context mContext;
 
     // Debug tag, for logging
-    String  gift_coin_count="200";
+    String  gift_coin_count="100";
     static final String TAG = "bazar";
 
     // SKUs for our products: the premium upgrade (non-consumable)
@@ -231,7 +231,7 @@ public class StoreActivity extends AppCompatActivity {
                 // mHelper.consumeAsync(purchase,mConsumeFinishedListener);
                 //mHelper.consumeAsync(purchase, mConsumeFinishedListener);
                 mIsFullPermisson=true;
-                Toast.makeText(getBaseContext(),"هورااااا... خرید با موفقیت انجام شد.. نسخه شما به نسخه کامل ارتقا یافت - اکنون می توانید از صفحه اصلی برنامه تعداد سکه های خود را افزایش دهید",Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(),"هورااااا... خرید با موفقیت انجام شد.. نسخه شما به نسخه کامل ارتقا یافت - اکنون می توانید از صفحه اصلی برنامه گوشه بالا تعداد سکه های خود را افزایش دهید",Toast.LENGTH_LONG).show();
                 //set_coint_count(2000,"add");
 
                 // give user access to premium content and update the UI
@@ -687,7 +687,7 @@ public class StoreActivity extends AppCompatActivity {
         }
         else
         {
-            Toast.makeText(getBaseContext(), "شما قبلا نسخه کامل بازی را خریداری کرده اید - برای شما تبلیغات حذف شده است و از صفحه اصلی برنامه می توانید تعداد سکه های خود را افزایش دهید", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "شما قبلا نسخه کامل بازی را خریداری کرده اید - برای شما تبلیغات حذف شده است و از صفحه اصلی برنامه گوشه بالا می توانید تعداد سکه های خود را افزایش دهید", Toast.LENGTH_SHORT).show();
         }
     }
     private TapsellAd ad1;
@@ -704,7 +704,6 @@ public class StoreActivity extends AppCompatActivity {
             public void onAdAvailable(TapsellAd ad) {
                 isAvailable =1;
                 ad1=ad;
-                Toast.makeText(StoreActivity.this, "ویدیو آماده است", Toast.LENGTH_SHORT).show();
 
             }
 
